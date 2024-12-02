@@ -1,1 +1,1 @@
-# KnowledgeManagementPlatform
+# DomainInfoManagement
