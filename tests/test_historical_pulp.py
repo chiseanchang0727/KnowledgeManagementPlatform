@@ -2,7 +2,7 @@ import unittest
 from unittest.mock import patch, MagicMock
 from app.utils.data_loader import load_csv
 from app.utils.plot_helper import plot_data
-from config import get_historical_files_path
+from app.utils.base import get_historical_files_path
 import pandas as pd
 import streamlit as st
 from app.components.historical_pulp_futrues_plot import historcial_pul_future 
