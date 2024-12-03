@@ -1,5 +1,5 @@
 import os
-from config import Configs
+from configs import Configs
 
 
 

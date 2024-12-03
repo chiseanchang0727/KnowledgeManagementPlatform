@@ -1,15 +1,13 @@
-from base import LLMAgents
+from .base import LLMAgents
+from .prompts import SUMMARY_PROMPT
 from langchain_core.runnables import RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
 from langchain.prompts.chat import ChatPromptTemplate
-from src.llm.prompts import SUMMARY_PROMPT
-
 
 class SummaryBot(LLMAgents):
-    def __init__(self) -> None:
-        self.model = self.llm
-    
-    
+    def __init__(self):
+        self.llm = self.get_llm()
+       
     def summarize(self, input_string):
         
         prompt = ChatPromptTemplate.from_messages(

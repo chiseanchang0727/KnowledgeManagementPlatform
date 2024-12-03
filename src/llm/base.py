@@ -1,14 +1,11 @@
 import os
 from dotenv import load_dotenv
 from langchain_openai import AzureChatOpenAI
-from langchain_core.runnables import RunnablePassthrough
-
-from prompts import SUMMARY_PROMPT
-
+load_dotenv()
 class LLMAgents:
-    def __init__(self) -> None:
-        load_dotenv()
-        self.llm = self.get_llm()
+    load_dotenv()
+    def __init__(self):
+        pass
     
     def get_llm(self):
 
@@ -29,13 +26,4 @@ class LLMAgents:
         )
 
         return llm
-    
-    
-    
-    #TODO: user runnable to construct the summary bot
-    def summary_bot(self):
-        
-        sys_prompt = SUMMARY_PROMPT
-        
-        return
     
