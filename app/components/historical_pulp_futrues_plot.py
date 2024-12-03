@@ -1,9 +1,10 @@
 import re
+import os
 import streamlit as st
 import pandas as pd
+from configs import Configs
 from app.utils.data_loader import load_csv
 from app.utils.plot_helper import plot_data
-from app.utils.base import get_historical_files_path
 
 from streamlit_date_picker import date_range_picker, date_picker, PickerType
 
@@ -27,7 +28,7 @@ def data_preprocessing(raw_data):
 def historcial_pul_future():
     # Set up Streamlit
     try:
-        file_path = get_historical_files_path('Bleached Softwood Kraft Pulp Futures Historical Data.csv')
+        file_path = os.path.join(Configs.HISTORICAL_DATA_DIR, 'Bleached Softwood Kraft Pulp Futures Historical Data.csv')
         data = load_csv(file_path)  # Ensure `load_csv` is implemented to load CSVs from file paths
         data = data_preprocessing(data)
         if data is None or data.empty:

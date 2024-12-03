@@ -1,6 +1,6 @@
 import streamlit as st
 from app.components.historical_pulp_futrues_plot import historcial_pul_future
-
+from app.components.summary_components import display_text_summary_interactive
 # Set layout to wide
 st.set_page_config(
     layout="wide"
@@ -8,7 +8,7 @@ st.set_page_config(
 
 
 theme1 = 'Pulp Futures: Historcial Data and Prediction'
-theme2 = 'News Summary'
+theme2 = 'Domain Information'
 
 # Sidebar content
 with st.sidebar:
@@ -24,7 +24,7 @@ with st.sidebar:
     )
 
 
-st.title("Bleached Softwood Kraft Pulp Futures")
+
 
 # tab1, tab2 = st.tabs(['Historcial Data', 'Prediction'])
 # with tab1:
@@ -38,6 +38,7 @@ st.title("Bleached Softwood Kraft Pulp Futures")
 
 if page == theme1:
     with st.container():    
+        st.title("Bleached Softwood Kraft Pulp Futures")
         tab1, tab2 = st.tabs(['Historcial Data', 'Prediction'])
         with tab1:
             with st.container():    
@@ -49,4 +50,8 @@ if page == theme1:
 
 elif page == theme2:
     with st.container():
-        st.header('News Summary')
+        st.title("行業資訊")
+
+        file_path = './data/text_data/paper_price_summary.txt'
+
+        display_text_summary_interactive(file_path)

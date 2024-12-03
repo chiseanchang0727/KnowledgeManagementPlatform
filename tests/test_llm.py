@@ -1,7 +1,6 @@
 import unittest
 import os
 from src.text_summary import get_text_summary
-from src.utils import read_txt
 from configs import Configs
 
 class TestUtils(unittest.TestCase):
