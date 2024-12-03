@@ -1,8 +1,8 @@
 import os
 from configs import Configs
-from .llm.summary_bot import SummaryBot
+from ..bots.summary_bot import SummaryBot
 
-from .utils import read_txt
+from ...utils import read_txt
 
 def get_text_summary(text):
     

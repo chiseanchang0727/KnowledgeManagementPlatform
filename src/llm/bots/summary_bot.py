@@ -1,5 +1,5 @@
-from .base import LLMAgents
-from .prompts import SUMMARY_PROMPT
+from ..base import LLMAgents
+from ..prompts import SUMMARY_PROMPT
 from langchain_core.runnables import RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
 from langchain.prompts.chat import ChatPromptTemplate

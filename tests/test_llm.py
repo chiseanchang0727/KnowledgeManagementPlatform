@@ -1,6 +1,6 @@
 import unittest
 import os
-from src.text_summary import get_text_summary
+from llm.applications.text_summary import get_text_summary
 from configs import Configs
 
 class TestUtils(unittest.TestCase):
