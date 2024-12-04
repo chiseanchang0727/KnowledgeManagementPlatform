@@ -1,8 +1,10 @@
 import os
 from dotenv import load_dotenv
 from langchain_openai import AzureChatOpenAI
-load_dotenv()
-class LLMAgents:
+
+
+
+class LLM:
     load_dotenv()
     def __init__(self):
         pass

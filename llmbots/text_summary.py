@@ -1,9 +1,11 @@
 import os
 from configs import Configs
-from ..bots.summary_bot import SummaryBot
+from .llm.bots.summary_bot import SummaryBot
 
-from ...utils import read_txt
+from .utils import read_txt
 
+
+#TODO: combine with summary bot
 def get_text_summary(text):
     
     bot = SummaryBot()

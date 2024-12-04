@@ -1,10 +1,10 @@
-from ..base import LLMAgents
+from .base import LLM
 from ..prompts import SUMMARY_PROMPT
 from langchain_core.runnables import RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
 from langchain.prompts.chat import ChatPromptTemplate
 
-class SummaryBot(LLMAgents):
+class SummaryBot(LLM):
     def __init__(self):
         self.llm = self.get_llm()
        
