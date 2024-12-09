@@ -2,7 +2,7 @@ import re
 import os
 import streamlit as st
 import pandas as pd
-from configs import Configs
+from config.configs import Configs
 from app.utils.data_loader import load_csv
 from app.utils.plot_helper import plot_data
 

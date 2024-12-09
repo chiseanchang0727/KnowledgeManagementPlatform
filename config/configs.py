@@ -1,3 +1,4 @@
+#TODO: put to yaml
 class Configs:
     BASE_DATA_DIR = './data/'
     HISTORICAL_DATA_DIR = './data/historical_data/'

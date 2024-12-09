@@ -1,7 +1,7 @@
 import unittest
 import os
 from llm.applications.text_summary import get_text_summary
-from configs import Configs
+from config.configs import Configs
 
 class TestUtils(unittest.TestCase):
     def test_llm(self):
