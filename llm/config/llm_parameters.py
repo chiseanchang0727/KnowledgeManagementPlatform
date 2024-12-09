@@ -23,12 +23,12 @@ class LLMParameter(BaseModel):
     
     api_version: str | None = Field(
         description="The version of the LLM API to use.",
-        default_factory=lambda: os.getenv("OPENAI_API_VERSION"), 
+        default_factory=lambda: os.getenv("OPEN_AI_VERSION"), 
     )
     
     deployment_name: str | None = Field(
         description="The deployment name to use for the LLM service.",
-        default_factory=lambda: os.getenv("OPENAI_DEPLOYMENT_NAME"),  
+        default_factory=lambda: os.getenv("GPT_DEPLOYMENT_NAME"),  
     )
     ############################
     
