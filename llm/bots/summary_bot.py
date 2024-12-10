@@ -1,19 +1,20 @@
-from .base import LLM
-from ..prompts.prompts import SUMMARY_PROMPT
+from .base import LLMBase
+from llm.config.llm_config import LLMConfig
 from langchain_core.runnables import RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
 from langchain.prompts.chat import ChatPromptTemplate
 
-class SummaryBot(LLM):
-    def __init__(self):
-        self.llm = self.get_llm()
+class SummaryBot(LLMBase):
+    def __init__(self, config: LLMConfig):
+        super().__init__(config)
+        self.model = self.get_llm()
        
-    def summarize(self, input_string):
+    def summarize(self, input_string, prompt):
         
         prompt = ChatPromptTemplate.from_messages(
             [
                 (
-                    "system", SUMMARY_PROMPT
+                    "system", prompt
                 ),
                 (
                     "human","{input_string}"
@@ -24,8 +25,31 @@ class SummaryBot(LLM):
         chain = (
             {"input_string": RunnablePassthrough()}
             | prompt
-            | self.llm
+            | self.model
             | StrOutputParser()
         )
         
         return chain.invoke(input_string)
+    
+
+    def web_summary(self, url, prompt):
+        
+        prompt = ChatPromptTemplate.from_messages(
+            [
+                (
+                    "system", prompt
+                ),
+                (
+                    "human", "{url}"
+                )
+            ]
+        )
+
+        chain = (
+            {"url": RunnablePassthrough() }
+            | prompt
+            | self.model
+            | StrOutputParser()
+        )
+
+        return chain.invoke({"url": url})

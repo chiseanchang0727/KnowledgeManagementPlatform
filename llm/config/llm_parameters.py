@@ -1,13 +1,8 @@
 import os
 from pydantic import BaseModel, Field
-from llm.config.enum import LLMType
 
-class LLMParameter(BaseModel):
+class LLMParameters(BaseModel):
     """LLM Parameters model."""
-    
-    type: LLMType = Field(
-        description="The type of LLM model to use.", default=LLMType.AzureOpenAIChat
-    )
     
     ############################ 
     # Load from .env by default

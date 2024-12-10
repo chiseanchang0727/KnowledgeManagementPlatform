@@ -1,2 +1,3 @@
-llm_type: azure_openai_chat
-temperature: 0
+llm:
+  llm_type: azure_openai_chat
+  temperature: 0

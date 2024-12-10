@@ -9,7 +9,7 @@ class LLMBase:
     
     def get_llm(self, llm_type=LLMType.AzureOpenAIChat):
         if llm_type == LLMType.AzureOpenAIChat:
-            self.llm = self.get_aoai_llm()
+            return  self.get_aoai_llm()
         else:
             raise NotImplementedError(f"LLM Type {llm_type} is not supported yet.")
         
