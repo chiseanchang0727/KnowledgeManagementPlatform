@@ -39,6 +39,7 @@ class CustomDataset(Dataset):
         return features, target
     
 class DataModule(nn.Module):
+    #TODO: hyperparameters is not needed here, batch_size has been move to data_config part
     def __init__(self, df_train, data_config: DataConfig, hp_config: NNhyperparameters):
         super().__init__()
         self.df = df_train
@@ -51,13 +52,13 @@ class DataModule(nn.Module):
 
         self.features = data_config.features
         self.target = data_config.target
-        self.N_fold = hp_config.n_fold
+        self.n_fold = hp_config.n_fold
 
         self.setup()
 
     def setup(self, df, test_days=30):    
         self.index_dict = {}
-        tss = TimeSeriesSplit(n_splits=self.N_fold, test_size=test_days)
+        tss = TimeSeriesSplit(n_splits=self.n_fold, test_size=test_days)
         for i, (train_idx, val_idx) in enumerate(tss.split(df)):
             self.index_dict[i] = {
                 "train_idx": train_idx,
