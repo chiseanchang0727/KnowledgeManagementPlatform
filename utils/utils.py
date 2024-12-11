@@ -1,4 +1,6 @@
+import pandas as pd
 from utils.enums import ConfigType
+from predictor.config.data_configs import DataConfig
 from llm.config.llm_config import LLMConfig
 from predictor.config.ml_configs import NNhyperparameters
 import yaml
@@ -7,7 +9,7 @@ import yaml
 def normalize_keys(d):
     """Normalize the key to uppercase."""
     if isinstance(d, dict):
-        return {k.upper(): normalize_keys(v) for k, v in d.items()}
+        return {k.upper(): v for k, v in d.items()}
     return d
 
 class YamlLoader:
@@ -19,6 +21,9 @@ class YamlLoader:
             config_data = yaml.safe_load(file)
         return normalize_keys(config_data)
     
+    def get_data_config(self):
+        return DataConfig(**self.config_data.get(ConfigType.Data, {}))
+    
     def get_llm_config(self):
         return LLMConfig(**self.config_data.get(ConfigType.LLM, {}))
     
@@ -27,8 +32,8 @@ class YamlLoader:
     
     
 
-    def load_csv(file_path):
-        try:
-            return pd.read_csv(file_path)
-        except Exception as e:
-            return None
+def load_csv(file_path):
+    try:
+        return pd.read_csv(file_path)
+    except Exception as e:
+        return None

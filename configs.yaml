@@ -1,4 +1,6 @@
-FutureDataName: "Bleached Softwood Kraft Pulp Futures Historical Data.csv"
+FutureData:
+  name: "Bleached Softwood Kraft Pulp Futures Historical Data.csv"
+  target: "Price"
 LLM:
   llm_type: azure_openai_chat
   temperature: 0
