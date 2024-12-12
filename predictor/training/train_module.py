@@ -5,9 +5,9 @@ from predictor.training.data_loader import DataModule
 from pytorch_lightning import Trainer
 
 
-def train(df, features, label, config: NNhyperparameters):
+def train(df, config: NNhyperparameters):
 
-    data_module = DataModule(df, features, label, config)
+    data_module = DataModule(df, config)
 
 
     for fold in range(config.n_fold):

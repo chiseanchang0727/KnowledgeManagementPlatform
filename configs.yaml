@@ -1,11 +1,14 @@
-FutureDataName: "Bleached Softwood Kraft Pulp Futures Historical Data.csv"
+FutureData:
+  name: "Bleached Softwood Kraft Pulp Futures Historical Data.csv"
+  target: "Price"
+  batch_size: 300 # Moved here as it relates to data handling
+
 LLM:
   llm_type: azure_openai_chat
   temperature: 0
 
 Model_NN:
   seed: 42
-  batch_size: 300
   lr: 1e-3
   n_hidden: [16, 32, 32, 16]
   epochs: 100
