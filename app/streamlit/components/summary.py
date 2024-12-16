@@ -1,4 +1,4 @@
-from llm.applications.text_summary import get_text_summary
+from llm.models.text_summary import get_text_summary
 
 
 

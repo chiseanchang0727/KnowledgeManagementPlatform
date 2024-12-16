@@ -14,3 +14,7 @@ def check_path_config(base_dir=Configs.BASE_DATA_DIR, historical_data_dir=Config
 def get_historical_files_path(data_name, base_dir=Configs.BASE_DATA_DIR, historcial_data_dir=Configs.HISTORICAL_DATA_DIR):
     check_path_config()
     return os.path.join(base_dir, historcial_data_dir, data_name)
+
+
+
+    

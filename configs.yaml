@@ -1,6 +1,5 @@
-FutureData:
-  name: "Bleached Softwood Kraft Pulp Futures Historical Data.csv"
-  target: "Price"
+DemoData:
+  data1: "Bleached Softwood Kraft Pulp Futures Historical Data.csv"
 
 LLM:
   llm_type: azure_openai_chat
@@ -24,3 +23,6 @@ Training:
       - 32
       - 16
     weight_decay: 1e-4
+
+DataUpload:
+  dir: ./data/upload_data/

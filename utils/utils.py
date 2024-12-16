@@ -1,17 +1,10 @@
+import yaml
 import pandas as pd
 from utils.enums import ConfigType
-from predictor.config.data_configs import DataConfig
 from llm.config.llm_config import LLMConfig
-from predictor.config.ml_configs import NNHyperparameters
 from predictor.config.train_configs import TrainingConfig
-import yaml
+from app.config.upload_config import UploadConfig
 
-
-def normalize_keys(d):
-    """Normalize the key to uppercase."""
-    if isinstance(d, dict):
-        return {k.lower(): v for k, v in d.items()}
-    return d
 
 class YamlLoader:
     def __init__(self, file_path):
@@ -28,7 +21,17 @@ class YamlLoader:
     def get_training_config(self):
         return TrainingConfig(**self.config_data[ConfigType.Training.value])
     
-    
+    def get_upload_config(self):
+        return UploadConfig(**self.config_data[ConfigType.DataUpload.value])
+
+
+
+def normalize_keys(d):
+    """Normalize the key to uppercase."""
+    if isinstance(d, dict):
+        return {k.lower(): v for k, v in d.items()}
+    return d
+
 
 def load_csv(file_path):
     try:

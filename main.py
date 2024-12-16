@@ -10,7 +10,7 @@ def main():
     Entry point for running the Streamlit application.
     """
 
-    app_path = './app/streamlit_app.py'
+    app_path = './app/streamlit/streamlit_app.py'
 
     # Adjust sys.argv to mimic the command-line input for Streamlit
     sys.argv = ["streamlit", "run", app_path]

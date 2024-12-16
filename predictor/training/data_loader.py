@@ -7,13 +7,7 @@ from sklearn.model_selection import TimeSeriesSplit
 from predictor.config.train_configs import TrainingConfig
 
 class CustomDataset(Dataset):
-    def __init__(self, df_input: pd.DataFrame, features: list, target: str, accelerator='cpu'):
-        """
-        Args:
-            df_input (pd.DataFrame): input DataFrame
-            features (list): list of column names to use as features.
-            target (str): column name to use as the target.
-        """
+    def __init__(self, df_input: pd.DataFrame, features: list, target: str, accelerator: str):
         self.features = torch.FloatTensor(df_input[features].to_numpy()).to(accelerator)
         self.target = torch.FloatTensor(df_input[target].to_numpy()).to(accelerator)
 
@@ -56,6 +50,7 @@ class DataModule(nn.Module):
 
     def setup(self, test_days=30):    
         self.index_dict = {}
+        # use TimeSeriesSplit to separate train and valid datasets
         tss = TimeSeriesSplit(n_splits=self.n_fold, test_size=test_days)
         for i, (train_idx, val_idx) in enumerate(tss.split(self.df)):
             self.index_dict[i] = {

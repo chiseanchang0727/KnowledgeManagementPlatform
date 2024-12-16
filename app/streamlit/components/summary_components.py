@@ -1,6 +1,6 @@
 import os
 import streamlit as st
-from src.utils import read_txt
+from app.utils.data_loader import read_txt
 
 def display_text_summary_interactive(file_path):
     """
