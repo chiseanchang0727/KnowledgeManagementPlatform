@@ -1,5 +1,6 @@
+import tiktoken
 
-def read_txt(path):
-    with open(path, 'r', encoding='utf-8') as file:
-        content = file.read()
-    return content
+def count_tokens(text, model_name):
+    encoding = tiktoken.encoding_for_model(model_name)
+    tokens = encoding.encode(text)
+    return len(tokens)

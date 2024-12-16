@@ -3,7 +3,7 @@ from enum import Enum
 class InputFileType(str, Enum):
 
     csv = "csv"
-    text = "text"
+    txt = "txt"
     pdf = "pdf"
 
     def __repr__(self):

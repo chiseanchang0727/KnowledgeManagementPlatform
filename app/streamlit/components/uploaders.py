@@ -15,14 +15,11 @@ def upload_file(config: UploadConfig):
         if file_name.endswith(".csv"):
             df = pd.read_csv(uploaded_file)
             # call a bot to show summary
-            return df
-        
+
         elif file_name.endswith(".txt"):
             content = uploaded_file.read().decode("utf-8", errors="replace")
             st.write("Here’s the content of your text file:")
             # call a bot to show summary
-
-            return None
         
         elif file_name.endswith(".pdf"):
             reader = PdfReader(uploaded_file)
@@ -39,20 +36,18 @@ def upload_file(config: UploadConfig):
             st.success(f"File saved successfully to: {save_path}")
     
 
-# Directory to save the uploaded files
-SAVE_DIR = "uploaded_files"
-
 def save_uploaded_file(uploaded_file, path):
     """Saves the uploaded file to the specified directory."""
     try:
-        # Construct the save path
+        if not os.path.exists(path):
+            os.makedirs(path)
+
         save_path = os.path.join(path, uploaded_file.name)
         
-        # Save the file to the specified directory
         with open(save_path, "wb") as f:
             f.write(uploaded_file.getbuffer())
         
-        return save_path  # Return the path of the saved file
+        return save_path 
     
     except Exception as e:
         # Handle any exceptions that may occur during the saving process

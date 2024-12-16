@@ -1,7 +1,6 @@
 from llm.config.llm_config import LLMConfig
 from llm.bots.summary_bot import SummaryBot
 from ..prompts.prompts import TEXT_SUMMARY_PROMPT, WEBSITE_SUMMARY_PROMPT
-from llm.utils import read_txt
 
 
 #TODO: combine with summary bot
