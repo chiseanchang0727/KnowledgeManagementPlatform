@@ -38,7 +38,6 @@ class CustomDataset(Dataset):
         return features, target
     
 class DataModule(nn.Module):
-    #TODO: hyperparameters is not needed here, batch_size has been move to data_config part
     def __init__(self, df_train, config: TrainingConfig):
         super().__init__()
         self.df = df_train
@@ -49,16 +48,16 @@ class DataModule(nn.Module):
         self.tain_dataset = None
         self.valid_dataset = None
 
-        self.features = config.features
-        self.target = config.target
+        self.features = df_train.drop(config.data_config.target, axis=1).columns
+        self.target = config.data_config.target
         self.n_fold = config.n_fold
 
         self.setup()
 
-    def setup(self, df, test_days=30):    
+    def setup(self, test_days=30):    
         self.index_dict = {}
         tss = TimeSeriesSplit(n_splits=self.n_fold, test_size=test_days)
-        for i, (train_idx, val_idx) in enumerate(tss.split(df)):
+        for i, (train_idx, val_idx) in enumerate(tss.split(self.df)):
             self.index_dict[i] = {
                 "train_idx": train_idx,
                 "val_idx": val_idx

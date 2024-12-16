@@ -11,14 +11,16 @@ def train(df, config: TrainingConfig):
 
 
     for fold in range(config.n_fold):
+        data_module.train_loader(fold)
+        data_module.valid_loader(fold)
         
         input_size = data_module.train_dataset.features.shape[1]
 
         model = NN(
             input_size=input_size,
-            hidden_dims=config.n_hidden,
-            lr=config.lr,
-            weight_decay=config.weight_decay
+            hidden_dims=config.model_nn.n_hidden,
+            lr=config.model_nn.lr,
+            weight_decay=config.model_nn.weight_decay
         )
 
         test_trainer = Trainer(

@@ -36,20 +36,11 @@ def main():
 
     df_preprocessed = data_preprocessing(df_input)
 
-    trainig_configs
 
-
-    
-
-    
-    print(1)
-    
     # train
-
-
-
-
-
+    train(df_preprocessed, config=trainig_configs)
+    
+    print('end')
 
 if __name__ == "__main__":
     main()
