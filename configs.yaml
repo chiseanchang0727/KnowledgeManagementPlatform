@@ -1,18 +1,26 @@
 FutureData:
   name: "Bleached Softwood Kraft Pulp Futures Historical Data.csv"
   target: "Price"
-  batch_size: 300 # Moved here as it relates to data handling
 
 LLM:
   llm_type: azure_openai_chat
   temperature: 0
 
-Model_NN:
-  seed: 42
-  lr: 1e-3
-  n_hidden: [16, 32, 32, 16]
-  epochs: 100
-  N_fold: 5
-  optimizer: "Adam" # alternative: AdamW
-  weight_decay: 1e-4
+Training:
   accelerator: "gpu"
+  seed: 42
+  epochs: 100
+  n_fold: 5
+  batch_size: 64
+  data_config:
+    input_data_name: "Bleached Softwood Kraft Pulp Futures Historical Data.csv"
+    target: "Price"
+    drop_cols:
+    features:
+  model_nn:
+    lr: 0.001
+    n_hidden:
+      - 16
+      - 32
+      - 16
+    weight_decay: 1e-4

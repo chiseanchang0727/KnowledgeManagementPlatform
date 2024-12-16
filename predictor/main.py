@@ -30,13 +30,13 @@ def main():
 
     config_loader = YamlLoader(args.config_path)
 
-    data_configs = config_loader.get_data_config()
-    model_nn_configs = config_loader.get_model_nn_config()
+    trainig_configs = config_loader.get_training_config()
 
-    df_input = pd.read_csv(os.path.join(args.data_path, config_loader.config_data['FUTUREDATANAME']))
+    df_input = pd.read_csv(os.path.join(args.data_path, trainig_configs.data_config.input_data_name))
 
     df_preprocessed = data_preprocessing(df_input)
 
+    trainig_configs
 
 
     

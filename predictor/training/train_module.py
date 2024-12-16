@@ -1,11 +1,11 @@
 from predictor.models.nn import NN
-from predictor.config.ml_configs import NNhyperparameters
+from predictor.config.train_configs import TrainingConfig
 from predictor.training.data_loader import DataModule
 
 from pytorch_lightning import Trainer
 
 
-def train(df, config: NNhyperparameters):
+def train(df, config: TrainingConfig):
 
     data_module = DataModule(df, config)
 

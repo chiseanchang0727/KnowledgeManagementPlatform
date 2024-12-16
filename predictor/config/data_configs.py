@@ -2,7 +2,7 @@ from pydantic import BaseModel, Field
 from typing import Optional, List
 
 
-class DataConfig:
+class DataConfig(BaseModel):
     """Configs for training data"""
 
     input_data_name: str = Field(

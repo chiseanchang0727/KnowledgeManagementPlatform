@@ -5,7 +5,8 @@ class ConfigType(Enum):
 
     LLM = 'llm'
     Model_NN = 'Model_NN'
-    Data = "Data"
+    Data = 'Data'
+    Training = 'Training'
 
-    def __repr__(self) -> str:
-        return f"'{self.value.upper()}'"
+    # def __repr__(self) -> str:
+    #     return f'"{self.value}"'

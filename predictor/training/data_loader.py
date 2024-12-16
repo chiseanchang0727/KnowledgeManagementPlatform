@@ -4,8 +4,7 @@ import torch
 import torch.nn as nn
 from torch.utils.data import Dataset, DataLoader
 from sklearn.model_selection import TimeSeriesSplit
-from predictor.config.data_configs import DataConfig
-from predictor.config.ml_configs import NNhyperparameters
+from predictor.config.train_configs import TrainingConfig
 
 class CustomDataset(Dataset):
     def __init__(self, df_input: pd.DataFrame, features: list, target: str, accelerator='cpu'):
@@ -40,19 +39,19 @@ class CustomDataset(Dataset):
     
 class DataModule(nn.Module):
     #TODO: hyperparameters is not needed here, batch_size has been move to data_config part
-    def __init__(self, df_train, data_config: DataConfig, hp_config: NNhyperparameters):
+    def __init__(self, df_train, config: TrainingConfig):
         super().__init__()
         self.df = df_train
-        self.batch_size = hp_config.batch_size
-        self.accelerator = hp_config.accelerator if torch.cuda.is_available() else 'cpu'
+        self.batch_size = config.batch_size
+        self.accelerator = config.accelerator if torch.cuda.is_available() else 'cpu'
         
         # initial the datasets as None
         self.tain_dataset = None
         self.valid_dataset = None
 
-        self.features = data_config.features
-        self.target = data_config.target
-        self.n_fold = hp_config.n_fold
+        self.features = config.features
+        self.target = config.target
+        self.n_fold = config.n_fold
 
         self.setup()
 
