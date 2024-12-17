@@ -25,4 +25,5 @@ Training:
     weight_decay: 1e-4
 
 DataUpload:
-  dir: ./data/upload_data/
+  upload_dir: ./data/upload_data/
+  summary_dir: ./data/summaried_data/

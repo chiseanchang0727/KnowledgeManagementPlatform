@@ -5,7 +5,12 @@ from typing import Optional
 
 class UploadConfig(BaseModel):
 
-    dir: str = Field(
+    upload_dir: str = Field(
+        default=None,
+        description="the path for saving user upload files."
+    )
+
+    summary_dir: str = Field(
         default=None,
         description="the path for saving user upload files."
     )
