@@ -36,7 +36,7 @@ class DataModule(nn.Module):
         super().__init__()
         self.df = df_train
         self.batch_size = config.batch_size
-        self.accelerator = config.accelerator if torch.cuda.is_available() else 'cpu'
+        self.accelerator = torch.device("cuda" if (torch.cuda.is_available() and config.accelerator == "gpu") else "cpu")
         
         # initial the datasets as None
         self.tain_dataset = None
