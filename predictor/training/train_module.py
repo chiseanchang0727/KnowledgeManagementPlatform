@@ -25,8 +25,7 @@ def train(df, config: TrainingConfig, mode):
         model = NN(
             input_size=input_size,
             hidden_dims=config.model_nn.n_hidden,
-            lr=config.model_nn.lr,
-            weight_decay=config.model_nn.weight_decay
+            dropouts=config.dropout
         ).to(device)
 
    
