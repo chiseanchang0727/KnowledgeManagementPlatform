@@ -7,7 +7,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) # A
 from utils.utils import YamlLoader
 
 from predictor.preprocessing.preprocessing import data_preprocessing
-from predictor.training.train_module_hand import train
+from predictor.training.train_module import train
 
 def get_argument():
     parser = argparse.ArgumentParser()

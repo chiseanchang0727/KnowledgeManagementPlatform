@@ -31,7 +31,7 @@ def train(df, config: TrainingConfig, mode):
 
    
         optimizer = optim.Adam(model.parameters(), lr=config.model_nn.lr, weight_decay=config.model_nn.weight_decay)
-        scheular = optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.4, patience=10)
+        scheular = optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.2, patience=5)
         criterion = nn.MSELoss()  
 
         fold_train_loss = float('inf')
