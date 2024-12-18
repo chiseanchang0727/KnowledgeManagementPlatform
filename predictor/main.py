@@ -36,7 +36,8 @@ def main():
     df_input = pd.read_csv(os.path.join(args.data_path, trainig_configs.data_config.input_data_name))
 
     df_preprocessed = data_preprocessing(df_input)
-
+    
+    # df_preprocessed.to_csv('./predictor/data/processed_data.csv')
 
     # train
     train(df_preprocessed, config=trainig_configs, mode=args.mode)

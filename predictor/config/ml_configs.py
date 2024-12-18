@@ -19,3 +19,7 @@ class NNHyperparameters(BaseModel):
         default=1e-4, 
         description="Weight decay (L2 regularization) for better convergence."
     )
+    dropout: List[float] = Field(
+        default=None,
+        description="Configs for dropout layers."
+    )

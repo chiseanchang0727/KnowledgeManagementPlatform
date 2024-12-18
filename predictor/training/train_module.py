@@ -25,17 +25,23 @@ def train(df, config: TrainingConfig, mode):
         model = NN(
             input_size=input_size,
             hidden_dims=config.model_nn.n_hidden,
-            dropouts=config.dropout
+            dropouts=config.model_nn.dropout
         ).to(device)
 
    
         optimizer = optim.Adam(model.parameters(), lr=config.model_nn.lr, weight_decay=config.model_nn.weight_decay)
-        scheular = optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.2, patience=5)
+
+        if config.scheduler.type == 'ReduceLROnPlateau':
+            scheular = optim.lr_scheduler.ReduceLROnPlateau(
+                optimizer, 
+                mode=config.scheduler.mode, 
+                factor=config.scheduler.factor, 
+                patience=config.scheduler.patience, 
+                min_lr=config.scheduler.min_lr
+            )
+
         criterion = nn.MSELoss()  
-
-        fold_train_loss = float('inf')
-        fold_val_loss = float('inf')
-
+        
         if mode == 'check':
             print("Running a quick check.")
 
@@ -58,6 +64,9 @@ def train(df, config: TrainingConfig, mode):
         elif mode == 'train':
             print('Training start!')
 
+            best_val_loss = float('inf')
+            no_improvement_epochs = 0
+
             for epoch in range(config.epochs):
     
                 model.train()
@@ -75,8 +84,8 @@ def train(df, config: TrainingConfig, mode):
 
 
                 avg_train_loss = train_loss / len(train_loader)
-                if avg_train_loss < fold_train_loss:
-                    fold_train_loss = avg_train_loss
+                # if avg_train_loss < fold_train_loss:
+                #     fold_train_loss = avg_train_loss
  
                 model.eval()
                 val_loss = 0.0
@@ -87,17 +96,27 @@ def train(df, config: TrainingConfig, mode):
                         val_loss += criterion(val_outputs, y_val).item()
 
                 avg_val_loss = val_loss / len(valid_loader)
-                if avg_val_loss < fold_val_loss:
-                    fold_val_loss = avg_val_loss
+                # if avg_val_loss < fold_val_loss:
+                #     fold_val_loss = avg_val_loss
 
                 scheular.step(avg_val_loss)
 
-                if epoch % 10 == 0:
+                if avg_val_loss < best_val_loss:
+                    best_val_loss = avg_val_loss
+                    no_improvement_epochs = 0
+                else:
+                    no_improvement_epochs += 1
+
+                if no_improvement_epochs > config.early_stopping:
+                    print(f'Early stopping triggered at epoch {epoch+1} for fold {fold}')
+                    break
+
+                if epoch % 5 == 0:
                     print(f"Fold: {fold} | Epoch: {epoch+1}/{config.epochs} | "
                         f"Train Loss: {avg_train_loss:.4f} | Val Loss: {avg_val_loss:.4f}")
 
-            total_train_loss += fold_train_loss
-            total_val_loss += fold_val_loss
+            total_train_loss += avg_train_loss
+            total_val_loss += avg_val_loss
 
             print(f"Last learning rate: {scheular.get_last_lr()}")
             print(f"Fold-{fold} training completed!")
