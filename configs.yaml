@@ -17,7 +17,7 @@ Training:
     drop_cols:
     features:
   model_nn:
-    lr: 0.001
+    lr: 1e-1
     n_hidden:
       - 16
       - 32

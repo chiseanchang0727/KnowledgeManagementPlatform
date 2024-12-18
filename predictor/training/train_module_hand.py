@@ -31,6 +31,7 @@ def train(df, config: TrainingConfig, mode):
 
    
         optimizer = optim.Adam(model.parameters(), lr=config.model_nn.lr, weight_decay=config.model_nn.weight_decay)
+        scheular = optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.4, patience=10)
         criterion = nn.MSELoss()  
 
         fold_train_loss = float('inf')
@@ -90,16 +91,20 @@ def train(df, config: TrainingConfig, mode):
                 if avg_val_loss < fold_val_loss:
                     fold_val_loss = avg_val_loss
 
-                print(f"Fold: {fold} | Epoch: {epoch+1}/{config.epochs} | "
-                      f"Train Loss: {avg_train_loss:.4f} | Val Loss: {avg_val_loss:.4f}")
+                scheular.step(avg_val_loss)
+
+                if epoch % 10 == 0:
+                    print(f"Fold: {fold} | Epoch: {epoch+1}/{config.epochs} | "
+                        f"Train Loss: {avg_train_loss:.4f} | Val Loss: {avg_val_loss:.4f}")
 
             total_train_loss += fold_train_loss
             total_val_loss += fold_val_loss
 
-            print(f"Fold-{fold} Training completed!")
+            print(f"Last learning rate: {scheular.get_last_lr()}")
+            print(f"Fold-{fold} training completed!")
     
     avg_train_loss = total_train_loss / config.n_fold
     avg_val_loss = total_val_loss / config.n_fold
 
-    print(f"Average Training Loss Across Folds: {avg_train_loss:.4f}")
-    print(f"Average Validation Loss Across Folds: {avg_val_loss:.4f}")
+    print(f"Average training loss: {avg_train_loss:.4f}")
+    print(f"Average validation loss: {avg_val_loss:.4f}")
