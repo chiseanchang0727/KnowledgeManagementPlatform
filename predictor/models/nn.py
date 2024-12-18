@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 
 class NN(nn.Module):
-    def __init__(self, input_size, hidden_dims, lr, weight_decay, dropouts=None):
+    def __init__(self, input_size, hidden_dims, dropouts=None):
         super(NN, self).__init__()
         layers = []
         input_dim = input_size
@@ -17,8 +17,8 @@ class NN(nn.Module):
             layers.append(nn.Linear(input_dim, hidden_dim))
 
             # Add dropout if specified
-            # if dropouts and i < len(dropouts):
-            #     layers.append(nn.Dropout(dropouts[i]))
+            if dropouts and i < len(dropouts):
+                layers.append(nn.Dropout(dropouts[i]))
 
             input_dim = hidden_dim
             
