@@ -15,9 +15,10 @@ def get_argument():
     parser.add_argument('--data_path', required=False, default='./predictor/data/')
     parser.add_argument('--config_path', required=False, default='configs.yaml', help="Pass the path of configs file.")
 
-    parser.add_argument('--check', required=False, help="Run 1 epoch to check the whole process is ok.")
-    parser.add_argument('--train', required=False)
-    parser.add_argument('--inference', required=False)
+    # parser.add_argument('--check', required=False, help="Run 1 epoch to check the whole process is ok.")
+    # parser.add_argument('--train', required=False)
+    parser.add_argument('--type', required=False, default=['check', 'train'])
+    parser.add_argument('--predict', required=False)
 
     return parser.parse_args()
 
@@ -38,7 +39,7 @@ def main():
 
 
     # train
-    train(df_preprocessed, config=trainig_configs)
+    train(df_preprocessed, config=trainig_configs, type=args.type)
     
     print('end')
 
