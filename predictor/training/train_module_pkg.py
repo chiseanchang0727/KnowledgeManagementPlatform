@@ -1,5 +1,5 @@
 import torch
-from predictor.models.nn import NN
+from predictor.models.mlp import NN
 from predictor.config.train_configs import TrainingConfig
 from predictor.training.data_loader import DataModule
 

@@ -4,7 +4,7 @@ import pandas as pd
 
 import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) # Add the project root to PYTHONPATH
-from utils.utils import YamlLoader
+from utils.helpers import YamlLoader
 
 from predictor.preprocessing.preprocessing import data_preprocessing
 from predictor.training.train_module import train

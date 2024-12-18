@@ -1,7 +1,7 @@
 import streamlit as st
 import os
 from dotenv import load_dotenv
-from utils.utils import YamlLoader
+from utils.helpers import YamlLoader
 from app.streamlit.components.historical_pulp_futrues_plot import historcial_pul_future
 from app.streamlit.components.summary_components import display_text_summary_interactive
 from app.streamlit.components.uploaders import upload_file

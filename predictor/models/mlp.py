@@ -1,9 +1,8 @@
-import torch
 import torch.nn as nn
 
-class NN(nn.Module):
+class MLP(nn.Module):
     def __init__(self, input_size, hidden_dims, dropouts=None):
-        super(NN, self).__init__()
+        super().__init__()
         layers = []
         input_dim = input_size
 

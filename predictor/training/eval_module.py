@@ -1,10 +1,10 @@
 import torch
-from torch import nn, optim
-from predictor.models.nn import NN
+from torch import nn
 from predictor.config.train_configs import TrainingConfig
 from predictor.training.data_loader import DataModule
-from predictor.training.utils import set_seed, save_model
-
+from predictor.utils.utils import set_seed, save_model
+from predictor.utils.model_utils import create_mlp_model
+from predictor.utils.training_utils import train_one_epoch, evalute_model
 
 def evaluate(df, config: TrainingConfig, mode, save=False):
     set_seed(config.seed)
@@ -18,22 +18,7 @@ def evaluate(df, config: TrainingConfig, mode, save=False):
     
     input_size = data_module.full_train_dataset.features.shape[1]
     
-    model = NN(
-        input_size=input_size,
-        hidden_dims=config.model_nn.n_hidden,
-        dropouts=config.model_nn.dropout
-    ).to(device)
-    
-    optimizer = optim.Adam(model.parameters(), lr=config.model_nn.lr, weight_decay=config.model_nn.weight_decay)
-    
-    if config.scheduler.type == 'ReduceLROnPlateau':
-        scheular = optim.lr_scheduler.ReduceLROnPlateau(
-            optimizer, 
-            mode=config.scheduler.mode, 
-            factor=config.scheduler.factor, 
-            patience=config.scheduler.patience, 
-            min_lr=config.scheduler.min_lr
-        )
+    model, optimizer, scheular = create_mlp_model(input_size, config, device)
         
     criterion = nn.MSELoss()
     
@@ -43,31 +28,9 @@ def evaluate(df, config: TrainingConfig, mode, save=False):
     no_improvement_epochs = 0
     
     for epoch in range(config.epochs):
-        model.train()
-        train_loss = 0
-        
-        for _, (X, y) in enumerate(full_train_data_loader):
-            X, y = X.to(device), y.to(device)
+        avg_train_loss = train_one_epoch(model, full_train_data_loader, optimizer, criterion, device)
             
-            optimizer.zero_grad()
-            outputs = model(X)
-            loss = criterion(outputs, y)        
-            loss.backward()
-            optimizer.step()
-            
-            train_loss += loss.item()
-            
-        avg_train_loss = train_loss / len(full_train_data_loader)
-    
-        model.eval()
-        test_loss = 0
-        with torch.no_grad():
-            for X, y in test_loader:
-                X, y = X.to(device), y.to(device)
-                test_outputs = model(X)
-                test_loss += criterion(test_outputs, y).item()
-
-        avg_test_loss = test_loss / len(test_loader)
+        avg_test_loss = evalute_model(model, test_loader, criterion, device)
         
         if epoch % 1 == 0:
             print(f"Epoch {epoch+1}/{config.epochs} | Train Loss: {avg_train_loss:.4f} | Test Loss: {avg_test_loss:.4f}")
