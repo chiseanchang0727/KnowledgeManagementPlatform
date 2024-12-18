@@ -8,6 +8,7 @@ from utils.utils import YamlLoader
 
 from predictor.preprocessing.preprocessing import data_preprocessing
 from predictor.training.train_module import train
+from predictor.training.eval_module import evaluate
 
 def get_argument():
     parser = argparse.ArgumentParser()
@@ -15,10 +16,8 @@ def get_argument():
     parser.add_argument('--data_path', required=False, default='./predictor/data/')
     parser.add_argument('--config_path', required=False, default='configs.yaml', help="Pass the path of configs file.")
 
-    # parser.add_argument('--check', required=False, help="Run 1 epoch to check the whole process is ok.")
-    # parser.add_argument('--train', required=False)
-    parser.add_argument('--mode', required=False, default=['check', 'train'])
-    parser.add_argument('--predict', required=False)
+    parser.add_argument('--mode', required=False, choices=['train', 'eval', 'predict'])
+    parser.add_argument('--save', required=False, action='store_true', help="save the model weights.")
 
     return parser.parse_args()
 
@@ -39,8 +38,10 @@ def main():
     
     # df_preprocessed.to_csv('./predictor/data/processed_data.csv')
 
-    # train
-    train(df_preprocessed, config=trainig_configs, mode=args.mode)
+    if args.mode == 'train':
+        train(df_preprocessed, config=trainig_configs, mode=args.mode)
+    elif args.mode == 'eval':
+        evaluate(df_preprocessed, config=trainig_configs, mode=args.mode, save=args.save)
     
     print('end')
 

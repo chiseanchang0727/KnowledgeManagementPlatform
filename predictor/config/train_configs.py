@@ -2,6 +2,7 @@ from pydantic import BaseModel, Field
 from predictor.config.data_configs import DataConfig
 from predictor.config.ml_configs import NNHyperparameters
 from predictor.config.scheduler_configs import SchedulerConfig
+
 class TrainingConfig(BaseModel):
     data_config: DataConfig = Field(
         default_factory=DataConfig, 
@@ -14,6 +15,11 @@ class TrainingConfig(BaseModel):
 
     scheduler: SchedulerConfig = Field(
         default_factory=SchedulerConfig
+    )
+    
+    train_test_split: float = Field(
+        default=0.8,
+        description="Train test ratio."
     )
     
     accelerator: str = Field(
@@ -40,4 +46,9 @@ class TrainingConfig(BaseModel):
     early_stopping: int = Field(
         default=5,
         description="Early stop the training if no improvement."
+    )
+
+    save_path: str = Field(
+        default=None,
+        description='Directory for saving the model weights.'
     )

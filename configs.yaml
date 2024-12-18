@@ -6,12 +6,14 @@ LLM:
   temperature: 0
 
 Training:
+  train_test_split: 0.8
   accelerator: "gpu"
   seed: 42
   epochs: 40
   n_fold: 5
   batch_size: 64
   early_stopping: 5
+  save_path: ./predictor/save_models/
   data_config:
     input_data_name: "Bleached Softwood Kraft Pulp Futures Historical Data.csv"
     target: "Price"
