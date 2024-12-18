@@ -7,7 +7,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) # A
 from utils.utils import YamlLoader
 
 from predictor.preprocessing.preprocessing import data_preprocessing
-from predictor.training.train_module import train
+from predictor.training.train_module_hand import train
 
 def get_argument():
     parser = argparse.ArgumentParser()
@@ -17,7 +17,7 @@ def get_argument():
 
     # parser.add_argument('--check', required=False, help="Run 1 epoch to check the whole process is ok.")
     # parser.add_argument('--train', required=False)
-    parser.add_argument('--type', required=False, default=['check', 'train'])
+    parser.add_argument('--mode', required=False, default=['check', 'train'])
     parser.add_argument('--predict', required=False)
 
     return parser.parse_args()
@@ -39,7 +39,7 @@ def main():
 
 
     # train
-    train(df_preprocessed, config=trainig_configs, type=args.type)
+    train(df_preprocessed, config=trainig_configs, mode=args.mode)
     
     print('end')
 

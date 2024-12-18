@@ -1,3 +1,4 @@
+import torch
 from pydantic import BaseModel, Field
 from predictor.config.data_configs import DataConfig
 from predictor.config.ml_configs import NNHyperparameters
