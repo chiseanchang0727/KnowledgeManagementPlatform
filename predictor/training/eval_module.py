@@ -13,8 +13,10 @@ def evaluate(df, config: TrainingConfig, mode, save=False):
     data_module = DataModule(df, config, mode)
     device = torch.device("cuda" if (torch.cuda.is_available() and config.accelerator == "gpu") else "cpu")
 
-    full_train_data_loader = data_module.full_train_data_loader()
-    test_loader = data_module.test_loader()
+    # full_train_data_loader = data_module.full_train_data_loader()
+    # test_loader = data_module.test_loader()
+
+    full_train_data_loader, test_loader = data_module.get_full_data_loader(num_workers=config.wokers)
     
     input_size = data_module.full_train_dataset.features.shape[1]
     

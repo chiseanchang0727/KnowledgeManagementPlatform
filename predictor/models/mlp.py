@@ -29,6 +29,3 @@ class MLP(nn.Module):
 
     def forward(self, x):
         return self.model(x).squeeze(-1)
-
-    def compute_loss(self, y_pred, y):
-        return self.criterion(y_pred, y)

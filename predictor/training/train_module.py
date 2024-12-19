@@ -19,8 +19,10 @@ def train(df, config: TrainingConfig, mode):
 
     for fold in range(config.n_fold):
 
-        train_loader = data_module.train_loader(fold)
-        valid_loader = data_module.valid_loader(fold)
+        # train_loader = data_module.train_loader(fold)
+        # valid_loader = data_module.valid_loader(fold)
+
+        train_loader, valid_loader = data_module.get_fold_loader(fold, num_workers=config.wokers)
 
         input_size = data_module.train_dataset.features.shape[1]
 
@@ -51,7 +53,7 @@ def train(df, config: TrainingConfig, mode):
                 print(f'Early stopping triggered at epoch {epoch+1} for fold {fold}')
                 break
 
-            if epoch % 5 == 0:
+            if epoch % 2 == 0:
                 print(f"Fold: {fold} | Epoch: {epoch+1}/{config.epochs} | "
                     f"Train Loss: {avg_train_loss:.4f} | Val Loss: {avg_val_loss:.4f}")
 

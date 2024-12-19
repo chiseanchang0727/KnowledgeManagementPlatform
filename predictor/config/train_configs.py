@@ -17,7 +17,7 @@ class TrainingConfig(BaseModel):
         default_factory=SchedulerConfig
     )
     
-    train_test_split: float = Field(
+    train_test_split_size: float = Field(
         default=0.8,
         description="Train test ratio."
     )
@@ -51,4 +51,8 @@ class TrainingConfig(BaseModel):
     save_path: str = Field(
         default=None,
         description='Directory for saving the model weights.'
+    )
+
+    wokers: int = Field(
+        default=0
     )

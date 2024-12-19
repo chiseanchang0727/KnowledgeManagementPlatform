@@ -24,3 +24,8 @@ class DataConfig(BaseModel):
         default=None,
         description="The cols for training."
     )
+
+    use_standardization: bool = Field(
+        default=True,
+        description="Use standardization if True, normalizationif False."
+    )
