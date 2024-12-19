@@ -1,0 +1,6 @@
+[submodule "pulp-futures-price-forecasting"]
+	path = pulp-futures-price-forecasting
+	url = git@github.com:chiseanchang0727/pulp-futures-price-forecasting.git
+[submodule "predictor/pulp-futures-price-forecasting"]
+	path = predictor/pulp-futures-price-forecasting
+	url = git@github.com:chiseanchang0727/pulp-futures-price-forecasting.git
