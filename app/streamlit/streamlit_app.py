@@ -28,7 +28,7 @@ with st.sidebar:
     # Create navigation options
     page = st.radio(
         "Theme",  # Label for the radio button
-        [theme1, theme2, theme3],  # Options for navigation
+        [theme2, theme3],  # Options for navigation
         index=0  # Default selection
     )
 
@@ -47,11 +47,23 @@ if page == theme1:
 elif page == theme2:
     with st.container():
         st.title("行業資訊")
-
-        file_path = './data/text_data/paper_price_summary.txt'
-
-        display_text_summary_interactive(file_path)
-
+        
+        # Get all files from the directory
+        summary_dir = './data/summaried_data/'
+        try:
+            files = [f for f in os.listdir(summary_dir) if f.endswith('.txt')]
+                            
+            
+            # Create sections for each file
+            for file_name in files:
+                with st.expander(f"📄 {file_name}"):
+                    file_path = os.path.join(summary_dir, file_name)
+                    display_text_summary_interactive(file_path)
+                    
+        except FileNotFoundError:
+            st.error(f"Directory not found: {summary_dir}")
+        except Exception as e:
+            st.error(f"Error accessing files: {str(e)}")
 
 elif page == theme3:
     with st.container():

@@ -1,5 +1,5 @@
 from llm.utils import count_tokens
-from llm.models.text_summary import get_text_summary
+from llm.models.text_summary import get_text_summary, get_summary_title
 from llm.models.chunker import FileChunker
 import PyPDF2
 
@@ -27,11 +27,11 @@ def file_summary(file):
     summary_all = "".join(page_summary[page] for page, _ in page_summary.items())
 
     doc_summary = get_text_summary(summary_all)
-
+    summary_title = get_summary_title(doc_summary)
+    
     # else:
     #     doc_summary = get_text_summary(file)
 
-    return doc_summary
+    return doc_summary, summary_title
     
-
 

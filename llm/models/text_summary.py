@@ -1,6 +1,6 @@
 from llm.config.llm_config import LLMConfig
 from llm.bots.summary_bot import SummaryBot
-from ..prompts.prompts import TEXT_SUMMARY_PROMPT, WEBSITE_SUMMARY_PROMPT
+from ..prompts.prompts import TEXT_SUMMARY_PROMPT, SUMMARY_TITLE_PROMPT
 
 
 #TODO: combine with summary bot
@@ -13,15 +13,12 @@ def get_text_summary(text, prompt=TEXT_SUMMARY_PROMPT):
     return response
 
 
-
-
-# Here will be two jobs: Summary the user-provided files and daily highlight summary
-
-
-def get_web_summary(url, prompt=WEBSITE_SUMMARY_PROMPT):
-
+def get_summary_title(text, prompt=SUMMARY_TITLE_PROMPT):
+    
     bot = SummaryBot(config=LLMConfig())
-
-    response = bot.web_summary(url, prompt)
-
+    
+    response = bot.summarize(text, prompt)
+    
     return response
+
+

@@ -2,7 +2,7 @@ import yaml
 import pandas as pd
 from utils.enums import ConfigType
 from llm.config.llm_config import LLMConfig
-from predictor.config.train_configs import TrainingConfig
+# from predictor.config.train_configs import TrainingConfig
 from app.config.upload_config import UploadConfig
 
 
@@ -18,8 +18,8 @@ class YamlLoader:
     def get_llm_config(self):
         return LLMConfig(**self.config_data[ConfigType.LLM.value])
     
-    def get_training_config(self):
-        return TrainingConfig(**self.config_data[ConfigType.Training.value])
+    # def get_training_config(self):
+    #     return TrainingConfig(**self.config_data[ConfigType.Training.value])
     
     def get_upload_config(self):
         return UploadConfig(**self.config_data[ConfigType.DataUpload.value])

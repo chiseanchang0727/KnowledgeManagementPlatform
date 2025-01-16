@@ -10,6 +10,8 @@ TEXT_SUMMARY_PROMPT="""
 
 
 
-WEBSITE_SUMMARY_PROMPT="""
-給我以下網頁的Summary: {url}
+SUMMARY_TITLE_PROMPT="""
+理解以下內容之後，給我最適合的title，只要一句話就好，限縮在20個繁體中文字元內
+
+{input_string}
 """
