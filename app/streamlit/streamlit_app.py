@@ -46,7 +46,7 @@ if page == theme1:
 
 elif page == theme2:
     with st.container():
-        st.title("行業資訊")
+        st.title("文件摘要")
         
         # Get all files from the directory
         summary_dir = './data/summaried_data/'
